@@ -9,6 +9,7 @@ public class CompanyDTOToCompany implements IMapper<CompanyDTO, Company>{
     @Override
     public Company map(CompanyDTO in) {
         Company company = new Company();
+        company.setId(in.getId());
         company.setName(in.getName());
         company.setAcronym(in.getAcronym());
         company.setUserList(in.getUserList());
@@ -17,6 +18,7 @@ public class CompanyDTOToCompany implements IMapper<CompanyDTO, Company>{
 
     @Override
     public Company mapExist(CompanyDTO in, Company inExist) {
+        inExist.setId(in.getId());
         inExist.setName(in.getName());
         inExist.setAcronym(in.getAcronym());
         inExist.setUserList(in.getUserList());
