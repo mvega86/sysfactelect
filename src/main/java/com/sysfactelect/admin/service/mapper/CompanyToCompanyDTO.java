@@ -1,6 +1,6 @@
-package com.sysfactelect.admin.controller.mapper;
+package com.sysfactelect.admin.service.mapper;
 
-import com.sysfactelect.admin.controller.mapper.DTO.CompanyDTO;
+import com.sysfactelect.admin.service.mapper.DTO.CompanyDTO;
 import com.sysfactelect.admin.persistence.entity.Company;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +16,12 @@ public class CompanyToCompanyDTO implements IMapper<Company, CompanyDTO>{
         return companyDTO;
     }
 
-    @Override
+    /*@Override
     public CompanyDTO mapExist(Company in, CompanyDTO inExist) {
         inExist.setId(in.getId());
         inExist.setName(in.getName());
         inExist.setAcronym(in.getAcronym());
         inExist.setUserList(in.getUserList());
         return inExist;
-    }
+    }*/
 }

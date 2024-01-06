@@ -1,18 +1,21 @@
 package com.sysfactelect.admin.service;
 
-import com.sysfactelect.admin.persistence.entity.Company;
+import com.sysfactelect.admin.service.mapper.DTO.AddCompanyDTO;
+import com.sysfactelect.admin.service.mapper.DTO.CompanyDTO;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 public interface ICompanyService {
 
-    public List<Company> findAll();
+    public List<CompanyDTO> findAll();
 
-    public Optional<Company> findById(Long id);
+    public CompanyDTO findById(UUID id);
 
-    public Company save(Company company);
+    public void save(AddCompanyDTO addCompanyDTO);
 
-    public List<Company> deleteById(Long id);
+    public void deleteById(UUID id);
+
+    public void update(CompanyDTO companyDTO, AddCompanyDTO addCompanyDTO);
 
 }
