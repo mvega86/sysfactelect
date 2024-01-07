@@ -1,5 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
+import com.sysfactelect.admin.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.repository.RoleRepository;
 import com.sysfactelect.admin.service.IRoleService;
@@ -10,9 +11,11 @@ import com.sysfactelect.admin.service.mapper.RoleDTOToRole;
 import com.sysfactelect.admin.service.mapper.RoleToRoleDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,13 +31,11 @@ public class RoleServiceImpl implements IRoleService {
     private RoleDTOToRole roleDTOToRole;
     @Override
     public List<RoleDTO> findAll() {
-        List<RoleDTO> roleDTOList = roleRepository.findAll()
+        return roleRepository.findAll()
                 .stream()
                 .map(role -> roleToRoleDTO.map(role))
                 .toList();
-        return roleDTOList;
     }
-
     @Override
     public RoleDTO findById(UUID id) {
         if (roleRepository.findById(id).isPresent()){
@@ -43,7 +44,6 @@ public class RoleServiceImpl implements IRoleService {
         }
         throw new EntityNotFoundException("Role not found");
     }
-
     @Override
     public void save(AddRoleDTO roleDTO) {
         roleRepository.save(addRoleDTOToRole.map(roleDTO));
@@ -55,8 +55,14 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public void update(RoleDTO roleDTO, AddRoleDTO addRoleDTO) {
-        roleDTO.setName(addRoleDTO.getName());
-        roleRepository.save(roleDTOToRole.map(roleDTO));
+    public void update(UUID id, AddRoleDTO addRoleDTO) {
+        Optional<Role> optionalRole = roleRepository.findById(id);
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
+            role.setName(addRoleDTO.getName());
+            roleRepository.save(role);
+        }else {
+            throw new SysFactElectException("Role not found", HttpStatus.NOT_FOUND);
+        }
     }
 }

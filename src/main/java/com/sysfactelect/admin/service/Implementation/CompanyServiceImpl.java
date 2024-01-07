@@ -1,5 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
+import com.sysfactelect.admin.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.repository.CompanyRepository;
 import com.sysfactelect.admin.service.ICompanyService;
@@ -10,6 +11,7 @@ import com.sysfactelect.admin.service.mapper.DTO.AddCompanyDTO;
 import com.sysfactelect.admin.service.mapper.DTO.CompanyDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +44,7 @@ public class CompanyServiceImpl implements ICompanyService {
         if (optionalCompany.isPresent()) {
             return companyToCompanyDTO.map(optionalCompany.get());
         }
-        throw new EntityNotFoundException("Campany not found");
+        throw new SysFactElectException("Company not found", HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -53,14 +55,25 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public void deleteById(UUID id) {
-        companyRepository.deleteById(id);
+        Optional<Company> optionalCompany = companyRepository.findById(id);
+        if(optionalCompany.isPresent()) {
+            companyRepository.deleteById(id);
+        }else{
+            throw new SysFactElectException("Company not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
-    public void update(CompanyDTO companyDTO, AddCompanyDTO addCompanyDTO) {
-        companyDTO.setName(addCompanyDTO.getName());
-        companyDTO.setAcronym(addCompanyDTO.getAcronym());
-        Company company = companyDTOToCompany.map(companyDTO);
-        companyRepository.save(company);
+    public void update(UUID id, AddCompanyDTO addCompanyDTO) {
+        Optional<Company> optionalCompany = companyRepository.findById(id);
+        if (optionalCompany.isPresent()) {
+            CompanyDTO companyDTO = companyToCompanyDTO.map(optionalCompany.get());
+            companyDTO.setName(addCompanyDTO.getName());
+            companyDTO.setAcronym(addCompanyDTO.getAcronym());
+            Company company = companyDTOToCompany.map(companyDTO);
+            companyRepository.save(company);
+        }else {
+            throw new SysFactElectException("Company not found", HttpStatus.NOT_FOUND);
+        }
     }
 }

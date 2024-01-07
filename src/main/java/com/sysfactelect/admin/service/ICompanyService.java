@@ -16,6 +16,6 @@ public interface ICompanyService {
 
     public void deleteById(UUID id);
 
-    public void update(CompanyDTO companyDTO, AddCompanyDTO addCompanyDTO);
+    public void update(UUID id, AddCompanyDTO addCompanyDTO);
 
 }

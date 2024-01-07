@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/roles")
 public class RoleController {
 
     @Autowired
     private IRoleService roleService;
 
-    @GetMapping("/findAll")
+    @GetMapping
     public ResponseEntity<?> findAll(){
         List<RoleDTO> roleDTOList = roleService.findAll();
         return ResponseEntity.ok(roleDTOList);
@@ -28,12 +28,8 @@ public class RoleController {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<?> findById(@PathVariable UUID id){
-        try {
-            RoleDTO roleDTO = roleService.findById(id);
-            return ResponseEntity.ok(roleDTO);
-        }catch (EntityNotFoundException exception){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-        }
+        RoleDTO roleDTO = roleService.findById(id);
+        return ResponseEntity.ok(roleDTO);
 
     }
 
@@ -48,23 +44,13 @@ public class RoleController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, AddRoleDTO addRoleDTO){
-        try{
-            RoleDTO getRoleDTO = roleService.findById(id);
-            roleService.update(getRoleDTO, addRoleDTO);
-            return ResponseEntity.ok("Role updated");
-        }catch (EntityNotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-        }
+        roleService.update(id, addRoleDTO);
+        return ResponseEntity.ok("Role updated");
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id){
-        try {
-            RoleDTO roleDTO = roleService.findById(id);
             roleService.deleteById(id);
             return ResponseEntity.ok("Role eliminated");
-        }catch (EntityNotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
-        }
     }
 }

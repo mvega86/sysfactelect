@@ -16,5 +16,5 @@ public interface IRoleService {
 
     public void deleteById(UUID id);
 
-    public void update(RoleDTO role, AddRoleDTO addRoleDTO);
+    public void update(UUID id, AddRoleDTO addRoleDTO);
 }

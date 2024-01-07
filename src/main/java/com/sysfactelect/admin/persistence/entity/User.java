@@ -31,7 +31,7 @@ public class User {
     @JoinColumn(name = "id_company", nullable = false, updatable = true)
     @JsonIgnore
     private Company company;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "users_roles",
             joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") },
