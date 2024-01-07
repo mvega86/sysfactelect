@@ -40,4 +40,9 @@ public class User {
     @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
+    public void addRole(Role role){
+        roles.add(role);
+        role.getUserList().add(this);
+    }
+
 }

@@ -21,12 +21,7 @@ public class Role {
     @GeneratedValue
     private UUID id;
     private String name;
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = { @JoinColumn(name = "id_rol", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") }
-    )
+    @ManyToMany(mappedBy = "roles")
     @JsonIgnore
     private List<User> userList = new ArrayList<>();
 }

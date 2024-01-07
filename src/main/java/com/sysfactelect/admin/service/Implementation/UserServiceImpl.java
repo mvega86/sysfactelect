@@ -1,12 +1,16 @@
 package com.sysfactelect.admin.service.Implementation;
 
 import com.sysfactelect.admin.exceptions.SysFactElectException;
+import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.entity.User;
+import com.sysfactelect.admin.persistence.repository.RoleRepository;
 import com.sysfactelect.admin.persistence.repository.UserRepository;
 import com.sysfactelect.admin.service.IUserService;
 import com.sysfactelect.admin.service.mapper.AddUserDTOToUser;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
+import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
 import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
+import com.sysfactelect.admin.service.mapper.RoleDTOToRole;
 import com.sysfactelect.admin.service.mapper.UserDTOToUser;
 import com.sysfactelect.admin.service.mapper.UserToUserDTO;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,11 +28,15 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
     private AddUserDTOToUser addUserDTOToUser;
     @Autowired
     private UserDTOToUser userDTOToUser;
     @Autowired
     private UserToUserDTO userToUserDTO;
+    @Autowired
+    private RoleDTOToRole roleDTOToRole;
     @Override
     public List<UserDTO> findAll() {
         return userRepository.findAll()
@@ -74,6 +82,25 @@ public class UserServiceImpl implements IUserService {
             userDTO.setLastname(addUserDTO.getLastname());
             userDTO.setCompany(addUserDTO.getCompany());
             userRepository.save(userDTOToUser.map(userDTO));
+        }else {
+            throw new SysFactElectException("User not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public void addUserRole(UUID id, List<UUID> rolesDTO) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            for (int i = 0; i < rolesDTO.size()-1; i++) {
+                Optional<Role> role = roleRepository.findById(rolesDTO.get(i));
+                if (role.isPresent()) {
+                    user.addRole(role.get());
+                }else {
+                    throw new SysFactElectException("Role not found", HttpStatus.NOT_FOUND);
+                }
+            }
+            userRepository.save(user);
         }else {
             throw new SysFactElectException("User not found", HttpStatus.NOT_FOUND);
         }
