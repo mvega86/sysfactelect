@@ -1,18 +1,18 @@
 package com.sysfactelect.admin.service.Implementation;
 
 import com.sysfactelect.admin.exceptions.SysFactElectException;
+import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.entity.User;
+import com.sysfactelect.admin.persistence.repository.CompanyRepository;
 import com.sysfactelect.admin.persistence.repository.RoleRepository;
 import com.sysfactelect.admin.persistence.repository.UserRepository;
 import com.sysfactelect.admin.service.IUserService;
-import com.sysfactelect.admin.service.mapper.AddUserDTOToUser;
+import com.sysfactelect.admin.service.mapper.*;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.SetRoleDTO;
+import com.sysfactelect.admin.service.mapper.DTO.RoleByUserDTO;
+import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
 import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
-import com.sysfactelect.admin.service.mapper.RoleDTOToRole;
-import com.sysfactelect.admin.service.mapper.UserDTOToUser;
-import com.sysfactelect.admin.service.mapper.UserToUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,13 +29,17 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
+    private CompanyRepository companyRepository;
+    @Autowired
     private AddUserDTOToUser addUserDTOToUser;
     @Autowired
     private UserDTOToUser userDTOToUser;
     @Autowired
     private UserToUserDTO userToUserDTO;
     @Autowired
-    private RoleDTOToRole roleDTOToRole;
+    private RoleToRoleDTO roleToRoleDTO;
+    @Autowired
+    private RoleToRoleByUserDTO roleToRoleByUserDTO;
     @Override
     public List<UserDTO> findAll() {
         return userRepository.findAll()
@@ -55,7 +59,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void save(AddUserDTO addUserDTO) {
-        userRepository.save(addUserDTOToUser.map(addUserDTO));
+        Optional<Company> optionalCompany = companyRepository.findById(addUserDTO.getCompany().getId());
+        if (optionalCompany.isPresent()){
+            User user = addUserDTOToUser.map(addUserDTO);
+            user.setCompany(optionalCompany.get());
+            userRepository.save(user);
+        }else {
+            throw new SysFactElectException("Company not found", HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
@@ -87,12 +98,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void addUserRole(UUID id, List<SetRoleDTO> rolesDTO) {
+    public void addUserRole(UUID id, List<UUID> rolesIDs) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
-            for (SetRoleDTO roleSet : rolesDTO) {
-                Optional<Role> role = roleRepository.findById(roleSet.getId());
+            for (UUID roleID : rolesIDs) {
+                Optional<Role> role = roleRepository.findById(roleID);
                 if (role.isPresent()) {
                     user.addRole(role.get());
                 } else {
@@ -103,5 +114,17 @@ public class UserServiceImpl implements IUserService {
         }else {
             throw new SysFactElectException("User not found", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public List<RoleByUserDTO> getRoles(UUID id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if(optionalUser.isPresent()){
+            return (List<RoleByUserDTO>) optionalUser.get().getRoles()
+                    .stream()
+                    .map(role -> roleToRoleByUserDTO.map(role))
+                    .toList();
+        }
+        throw new SysFactElectException("User not found",HttpStatus.NOT_FOUND);
     }
 }

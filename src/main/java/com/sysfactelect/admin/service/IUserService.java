@@ -1,8 +1,10 @@
 package com.sysfactelect.admin.service;
 
 
+import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.SetRoleDTO;
+import com.sysfactelect.admin.service.mapper.DTO.RoleByUserDTO;
+import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
 import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
 
 import java.util.List;
@@ -20,5 +22,7 @@ public interface IUserService {
 
     public void update(UUID id, AddUserDTO addUserDTO);
 
-    public void addUserRole(UUID id, List<SetRoleDTO> rolesDTO);
+    public void addUserRole(UUID id, List<UUID> rolesDTO);
+
+    public List<RoleByUserDTO> getRoles(UUID id);
 }
