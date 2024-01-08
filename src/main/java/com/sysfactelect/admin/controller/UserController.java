@@ -2,11 +2,8 @@ package com.sysfactelect.admin.controller;
 
 import com.sysfactelect.admin.service.IUserService;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
-import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
-import jakarta.persistence.EntityNotFoundException;
+import com.sysfactelect.admin.service.mapper.DTO.SetRoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,12 +48,12 @@ public class UserController {
 
     }
 
-    @PostMapping("addRoles/{id}")
-    public ResponseEntity<?> addRoles(@PathVariable UUID id, @RequestBody List<UUID> rolesDTO){
-        if (rolesDTO.isEmpty()){
+    @PutMapping("addRoles/{id}")
+    public ResponseEntity<?> addRoles(@PathVariable UUID id, @RequestBody List<SetRoleDTO> setRolesDTO){
+        if (setRolesDTO.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        userService.addUserRole(id,rolesDTO);
+        userService.addUserRole(id,setRolesDTO);
         return ResponseEntity.ok("Role(s) updated");
     }
 }

@@ -2,7 +2,7 @@ package com.sysfactelect.admin.service;
 
 
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
+import com.sysfactelect.admin.service.mapper.DTO.SetRoleDTO;
 import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
 
 import java.util.List;
@@ -20,5 +20,5 @@ public interface IUserService {
 
     public void update(UUID id, AddUserDTO addUserDTO);
 
-    public void addUserRole(UUID id, List<UUID> rolesDTO);
+    public void addUserRole(UUID id, List<SetRoleDTO> rolesDTO);
 }

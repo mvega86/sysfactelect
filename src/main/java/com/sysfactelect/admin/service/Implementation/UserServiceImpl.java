@@ -8,12 +8,11 @@ import com.sysfactelect.admin.persistence.repository.UserRepository;
 import com.sysfactelect.admin.service.IUserService;
 import com.sysfactelect.admin.service.mapper.AddUserDTOToUser;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
+import com.sysfactelect.admin.service.mapper.DTO.SetRoleDTO;
 import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
 import com.sysfactelect.admin.service.mapper.RoleDTOToRole;
 import com.sysfactelect.admin.service.mapper.UserDTOToUser;
 import com.sysfactelect.admin.service.mapper.UserToUserDTO;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -88,15 +87,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void addUserRole(UUID id, List<UUID> rolesDTO) {
+    public void addUserRole(UUID id, List<SetRoleDTO> rolesDTO) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
-            for (int i = 0; i < rolesDTO.size()-1; i++) {
-                Optional<Role> role = roleRepository.findById(rolesDTO.get(i));
+            for (SetRoleDTO roleSet : rolesDTO) {
+                Optional<Role> role = roleRepository.findById(roleSet.getId());
                 if (role.isPresent()) {
                     user.addRole(role.get());
-                }else {
+                } else {
                     throw new SysFactElectException("Role not found", HttpStatus.NOT_FOUND);
                 }
             }
