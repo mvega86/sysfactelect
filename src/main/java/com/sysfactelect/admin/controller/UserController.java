@@ -2,7 +2,6 @@ package com.sysfactelect.admin.controller;
 
 import com.sysfactelect.admin.service.IUserService;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.SetRoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,11 +48,16 @@ public class UserController {
     }
 
     @PutMapping("addRoles/{id}")
-    public ResponseEntity<?> addRoles(@PathVariable UUID id, @RequestBody List<SetRoleDTO> setRolesDTO){
-        if (setRolesDTO.isEmpty()){
+    public ResponseEntity<?> addRoles(@PathVariable UUID id, @RequestBody List<UUID> rolesIDs){
+        if (rolesIDs.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        userService.addUserRole(id,setRolesDTO);
+        userService.addUserRole(id,rolesIDs);
         return ResponseEntity.ok("Role(s) updated");
+    }
+
+    @GetMapping("{id}/roles")
+    public ResponseEntity<?> getRoles(@PathVariable UUID id){
+        return ResponseEntity.ok(userService.getRoles(id));
     }
 }
