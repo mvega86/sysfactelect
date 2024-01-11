@@ -10,11 +10,11 @@ public interface IRoleService {
 
     public List<RoleDTO> findAll();
 
-    public RoleDTO findById(UUID id);
+    public RoleDTO findById(Long id);
 
     public void save(AddRoleDTO role);
 
-    public void deleteById(UUID id);
+    public void deleteById(Long id);
 
-    public void update(UUID id, AddRoleDTO addRoleDTO);
+    public void update(Long id, AddRoleDTO addRoleDTO);
 }

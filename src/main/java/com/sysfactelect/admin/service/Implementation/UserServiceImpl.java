@@ -98,11 +98,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void addUserRole(UUID id, List<UUID> rolesIDs) {
+    public void addUserRole(UUID id, List<Long> rolesIDs) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
-            for (UUID roleID : rolesIDs) {
+            for (Long roleID : rolesIDs) {
                 Optional<Role> role = roleRepository.findById(roleID);
                 if (role.isPresent()) {
                     user.addRole(role.get());

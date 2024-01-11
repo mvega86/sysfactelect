@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("addRoles/{id}")
-    public ResponseEntity<?> addRoles(@PathVariable UUID id, @RequestBody List<UUID> rolesIDs){
+    public ResponseEntity<?> addRoles(@PathVariable UUID id, @RequestBody List<Long> rolesIDs){
         if (rolesIDs.isEmpty()){
             return ResponseEntity.noContent().build();
         }

@@ -4,12 +4,11 @@ import com.sysfactelect.admin.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.repository.CompanyRepository;
 import com.sysfactelect.admin.service.ICompanyService;
-import com.sysfactelect.admin.service.mapper.AddCompanyDTOToRole;
+import com.sysfactelect.admin.service.mapper.AddCompanyDTOToCompany;
 import com.sysfactelect.admin.service.mapper.CompanyDTOToCompany;
 import com.sysfactelect.admin.service.mapper.CompanyToCompanyDTO;
 import com.sysfactelect.admin.service.mapper.DTO.AddCompanyDTO;
 import com.sysfactelect.admin.service.mapper.DTO.CompanyDTO;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public class CompanyServiceImpl implements ICompanyService {
     private CompanyToCompanyDTO companyToCompanyDTO;
 
     @Autowired
-    private AddCompanyDTOToRole addCompanyDTOToRole;
+    private AddCompanyDTOToCompany addCompanyDTOToCompany;
     @Override
     public List<CompanyDTO> findAll() {
         return companyRepository.findAll()
@@ -49,7 +48,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public void save(AddCompanyDTO companyDTO) {
-        Company company = addCompanyDTOToRole.map(companyDTO);
+        Company company = addCompanyDTOToCompany.map(companyDTO);
         companyRepository.save(company);
     }
 

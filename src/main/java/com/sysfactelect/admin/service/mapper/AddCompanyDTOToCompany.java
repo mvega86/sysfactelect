@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-public class AddCompanyDTOToRole implements IMapper<AddCompanyDTO, Company>{
+public class AddCompanyDTOToCompany implements IMapper<AddCompanyDTO, Company>{
     @Override
     public Company map(AddCompanyDTO in) {
         Company company = new Company();

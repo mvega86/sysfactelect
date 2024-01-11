@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/roles")
+@RequestMapping("/admin/roles")
 public class RoleController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class RoleController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<?> findById(@PathVariable UUID id){
+    public ResponseEntity<?> findById(@PathVariable Long id){
         RoleDTO roleDTO = roleService.findById(id);
         return ResponseEntity.ok(roleDTO);
 
@@ -39,17 +39,17 @@ public class RoleController {
             return ResponseEntity.badRequest().build();
         }
         roleService.save(roleDTO);
-        return ResponseEntity.created(URI.create("/role/save")).build();
+        return ResponseEntity.created(URI.create("/admin/role/save")).build();
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, AddRoleDTO addRoleDTO){
+    public ResponseEntity<?> update(@PathVariable Long id, AddRoleDTO addRoleDTO){
         roleService.update(id, addRoleDTO);
         return ResponseEntity.ok("Role updated");
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable UUID id){
+    public ResponseEntity<?> delete(@PathVariable Long id){
             roleService.deleteById(id);
             return ResponseEntity.ok("Role eliminated");
     }

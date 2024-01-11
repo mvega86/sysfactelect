@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class RoleDTO {
-    private UUID id;
+    private Long id;
     private String name;
     private List<User> userList = new ArrayList<>();
 

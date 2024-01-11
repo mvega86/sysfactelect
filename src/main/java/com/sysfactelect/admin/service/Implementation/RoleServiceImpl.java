@@ -37,7 +37,7 @@ public class RoleServiceImpl implements IRoleService {
                 .toList();
     }
     @Override
-    public RoleDTO findById(UUID id) {
+    public RoleDTO findById(Long id) {
         if (roleRepository.findById(id).isPresent()){
             Role role = roleRepository.findById(id).get();
             return roleToRoleDTO.map(role);
@@ -50,12 +50,12 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         roleRepository.deleteById(id);
     }
 
     @Override
-    public void update(UUID id, AddRoleDTO addRoleDTO) {
+    public void update(Long id, AddRoleDTO addRoleDTO) {
         Optional<Role> optionalRole = roleRepository.findById(id);
         if (optionalRole.isPresent()) {
             Role role = optionalRole.get();

@@ -22,7 +22,7 @@ public interface IUserService {
 
     public void update(UUID id, AddUserDTO addUserDTO);
 
-    public void addUserRole(UUID id, List<UUID> rolesDTO);
+    public void addUserRole(UUID id, List<Long> rolesDTO);
 
     public List<RoleByUserDTO> getRoles(UUID id);
 }
