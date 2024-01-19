@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "commercial")
+@Table(name = "commercial", schema = "invoice")
 public class Commercial {
 
     @Id

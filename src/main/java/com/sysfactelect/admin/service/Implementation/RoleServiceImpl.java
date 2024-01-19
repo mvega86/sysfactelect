@@ -1,6 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
-import com.sysfactelect.admin.exceptions.SysFactElectException;
+import com.sysfactelect.exceptions.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.repository.RoleRepository;
 import com.sysfactelect.admin.service.IRoleService;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class RoleServiceImpl implements IRoleService {

@@ -1,4 +1,4 @@
-package com.sysfactelect.admin.exceptions;
+package com.sysfactelect.exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +9,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = {SysFactElectException.class })
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {com.sysfactelect.exceptions.exceptions.SysFactElectException.class })
     protected ResponseEntity<Object> handleConflict(
-            SysFactElectException ex, WebRequest request) {
+            com.sysfactelect.exceptions.exceptions.SysFactElectException ex, WebRequest request) {
         String bodyOfResponse = ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse,
                 new HttpHeaders(), ex.getHttpStatus(), request);

@@ -1,6 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
-import com.sysfactelect.admin.exceptions.SysFactElectException;
+import com.sysfactelect.exceptions.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.repository.CompanyRepository;
 import com.sysfactelect.admin.service.ICompanyService;

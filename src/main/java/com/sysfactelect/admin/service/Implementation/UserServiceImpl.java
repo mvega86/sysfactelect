@@ -1,6 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
-import com.sysfactelect.admin.exceptions.SysFactElectException;
+import com.sysfactelect.exceptions.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.entity.User;
@@ -11,7 +11,6 @@ import com.sysfactelect.admin.service.IUserService;
 import com.sysfactelect.admin.service.mapper.*;
 import com.sysfactelect.admin.service.mapper.DTO.AddUserDTO;
 import com.sysfactelect.admin.service.mapper.DTO.RoleByUserDTO;
-import com.sysfactelect.admin.service.mapper.DTO.RoleDTO;
 import com.sysfactelect.admin.service.mapper.DTO.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
