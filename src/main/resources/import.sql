@@ -10,5 +10,5 @@ INSERT INTO admin.users(id, id_company, email, lastname, name, password, usernam
 INSERT INTO admin.users_roles(id_rol, id_user)	VALUES (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d480');
 INSERT INTO admin.users_roles(id_rol, id_user)	VALUES (2, 'f47ac10b-58cc-4372-a567-0e02b2c3d481');
 
-INSERT INTO invoice.commercial(id, id_user, email, name, last_name)	VALUES ('f47ac10b-58cc-4372-a567-1e02b2c3d480', 'f47ac10b-58cc-4372-a567-0e02b2c3d480', "pepe@sargueyo", "pepe", "perez");
-INSERT INTO invoice.commercial(id, id_user, email, name, last_name)	VALUES ('f47ac10b-58cc-4372-a567-1e02b2c3d481', 'f47ac10b-58cc-4372-a567-1e02b2c3d481', "pepe1@sargueyo", "pepe1", "perez1");
+INSERT INTO invoice.commercial(id, id_user, email, name, last_name)	VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d483', 'f47ac10b-58cc-4372-a567-0e02b2c3d480', 'pepe@sargueyo', 'pepe', 'perez');
+INSERT INTO invoice.commercial(id, id_user, email, name, last_name)	VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d484', 'f47ac10b-58cc-4372-a567-0e02b2c3d481', 'pepe1@sargueyo', 'pepe1', 'perez1');
