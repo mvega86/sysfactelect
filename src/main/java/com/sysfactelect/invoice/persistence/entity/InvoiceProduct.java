@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "invoices_products", schema = "invoice")
-public class Invoice_Product {
+public class InvoiceProduct {
     @Id
     @ManyToOne
     private Invoice invoice;

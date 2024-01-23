@@ -25,5 +25,5 @@ public class Product {
     private BigDecimal price;
     @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private List<Invoice_Product> invoiceProductList = new ArrayList<>();
+    private List<InvoiceProduct> invoiceProductList = new ArrayList<>();
 }

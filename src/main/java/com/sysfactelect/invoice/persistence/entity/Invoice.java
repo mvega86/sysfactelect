@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -37,5 +36,5 @@ public class Invoice {
     private	InvoiceStatus   status;
     @OneToMany(mappedBy = "invoice")
     @JsonIgnore
-    private List<Invoice_Product> invoiceProductList = new ArrayList<>();
+    private List<InvoiceProduct> invoiceProductList = new ArrayList<>();
 }
