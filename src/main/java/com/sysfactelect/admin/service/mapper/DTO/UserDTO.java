@@ -3,6 +3,7 @@ package com.sysfactelect.admin.service.mapper.DTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.entity.Role;
+import com.sysfactelect.invoice.persistence.entity.Commercial;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,5 @@ public class UserDTO {
     private String lastname;
     private Company company;
     private List<Role> roles = new ArrayList<>();
+    private Commercial commercial;
 }

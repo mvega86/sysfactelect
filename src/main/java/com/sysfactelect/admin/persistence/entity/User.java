@@ -1,6 +1,7 @@
 package com.sysfactelect.admin.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sysfactelect.invoice.persistence.entity.Commercial;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -39,6 +40,10 @@ public class User {
     )
     @JsonIgnore
     private List<Role> roles = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private Commercial commercial;
 
     public void addRole(Role role){
         roles.add(role);

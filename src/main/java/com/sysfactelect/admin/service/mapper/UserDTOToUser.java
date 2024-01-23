@@ -16,7 +16,8 @@ public class UserDTOToUser implements IMapper<UserDTO, User>{
                 in.getName(),
                 in.getLastname(),
                 in.getCompany(),
-                in.getRoles()
+                in.getRoles(),
+                in.getCommercial()
         );
     }
 }
