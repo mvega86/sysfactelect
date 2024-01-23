@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  sysfactelect:
+    container_name: sysfactelect
+    image: susfactelect:1.0.0
+    build: target
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=jdbc:postgresql://sysfactelect_db:5432/sysfactadmin?currentSchema=admin
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+    depends_on:
+      -sysfactelect_bd:
+         condition: service_completed_successfully
+  sysfactelect_bd:
+    container_name: sysfactelect_db
+    image: postgres:16
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sysfactadmin
