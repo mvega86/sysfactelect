@@ -5,6 +5,8 @@ import com.sysfactelect.admin.persistence.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,4 +28,7 @@ public class Commercial {
     @JoinColumn(name = "id_user", nullable = false, updatable = true)
     @JsonIgnore
     private User user;
+    @OneToMany(mappedBy = "commercial")
+    @JsonIgnore
+    private List<Invoice> invoiceList = new ArrayList<>();
 }
