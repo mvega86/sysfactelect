@@ -1,6 +1,7 @@
 package com.sysfactelect.invoice.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceId;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,10 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "invoices", schema = "invoice")
 public class Invoice {
-    @Id
-    private	String	        type;
-    @Id
-    private	Long	        serial;
+    @EmbeddedId
+    private InvoiceId invoiceId;
     private Timestamp       date;
     @ManyToOne
     @JoinColumn(name = "id_commercial")

@@ -1,6 +1,7 @@
 package com.sysfactelect.invoice.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceProductId;
 import jakarta.persistence.*;
 import lombok.*;
 

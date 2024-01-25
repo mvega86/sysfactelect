@@ -1,9 +1,7 @@
 package com.sysfactelect.invoice.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceProductId;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -16,11 +14,19 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Table(name = "invoices_products", schema = "invoice")
 public class InvoiceProduct {
-    @Id
+
+    @EmbeddedId
+    private InvoiceProductId invoiceProductId;
     @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name="type_invoice"),
+            @JoinColumn(name="serial_invoice")
+    })
+    @MapsId("invoiceId")
     private Invoice invoice;
-    @Id
     @ManyToOne
+    @JoinColumn(name="id_product")
+    @MapsId("id")
     private Product product;
     private BigDecimal cant;
 }
