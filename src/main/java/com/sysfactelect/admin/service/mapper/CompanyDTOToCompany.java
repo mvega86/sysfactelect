@@ -2,10 +2,11 @@ package com.sysfactelect.admin.service.mapper;
 
 import com.sysfactelect.admin.service.mapper.DTO.CompanyDTO;
 import com.sysfactelect.admin.persistence.entity.Company;
+import com.sysfactelect.imapper.IMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CompanyDTOToCompany implements IMapper<CompanyDTO, Company>{
+public class CompanyDTOToCompany implements IMapper<CompanyDTO, Company> {
     @Override
     public Company map(CompanyDTO in) {
         Company company = new Company();

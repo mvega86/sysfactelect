@@ -2,10 +2,11 @@ package com.sysfactelect.admin.service.mapper;
 
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.service.mapper.DTO.RoleByUserDTO;
+import com.sysfactelect.imapper.IMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RoleToRoleByUserDTO implements IMapper<Role, RoleByUserDTO>{
+public class RoleToRoleByUserDTO implements IMapper<Role, RoleByUserDTO> {
 
     @Override
     public RoleByUserDTO map(Role in) {

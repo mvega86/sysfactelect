@@ -1,4 +1,4 @@
-package com.sysfactelect.invoice.service.mapper;
+package com.sysfactelect.imapper;
 
 public interface IMapper <I, O>{
     public O map(I in);
