@@ -1,6 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
-import com.sysfactelect.exceptions.exceptions.SysFactElectException;
+import com.sysfactelect.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.entity.User;
@@ -32,11 +32,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private AddUserDTOToUser addUserDTOToUser;
     @Autowired
-    private UserDTOToUser userDTOToUser;
-    @Autowired
     private UserToUserDTO userToUserDTO;
-    @Autowired
-    private RoleToRoleDTO roleToRoleDTO;
     @Autowired
     private RoleToRoleByUserDTO roleToRoleByUserDTO;
     @Override
@@ -83,14 +79,14 @@ public class UserServiceImpl implements IUserService {
     public void update(UUID id, AddUserDTO addUserDTO) {
         Optional<User> optionalUser = userRepository.findById(id);
         if(optionalUser.isPresent()) {
-            UserDTO userDTO = userToUserDTO.map(optionalUser.get());
-            userDTO.setUsername(addUserDTO.getUsername());
-            userDTO.setPassword(addUserDTO.getPassword());
-            userDTO.setEmail(addUserDTO.getEmail());
-            userDTO.setName(addUserDTO.getName());
-            userDTO.setLastname(addUserDTO.getLastname());
-            userDTO.setCompany(addUserDTO.getCompany());
-            userRepository.save(userDTOToUser.map(userDTO));
+            User user = optionalUser.get();
+            user.setUsername(addUserDTO.getUsername());
+            user.setPassword(addUserDTO.getPassword());
+            user.setEmail(addUserDTO.getEmail());
+            user.setName(addUserDTO.getName());
+            user.setLastname(addUserDTO.getLastname());
+            user.setCompany(addUserDTO.getCompany());
+            userRepository.save(user);
         }else {
             throw new SysFactElectException("User not found", HttpStatus.NOT_FOUND);
         }

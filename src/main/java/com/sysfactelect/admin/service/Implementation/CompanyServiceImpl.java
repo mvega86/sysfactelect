@@ -1,6 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
-import com.sysfactelect.exceptions.exceptions.SysFactElectException;
+import com.sysfactelect.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Company;
 import com.sysfactelect.admin.persistence.repository.CompanyRepository;
 import com.sysfactelect.admin.service.ICompanyService;
@@ -23,10 +23,7 @@ public class CompanyServiceImpl implements ICompanyService {
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired
-    private CompanyDTOToCompany companyDTOToCompany;
-    @Autowired
     private CompanyToCompanyDTO companyToCompanyDTO;
-
     @Autowired
     private AddCompanyDTOToCompany addCompanyDTOToCompany;
     @Override
@@ -66,10 +63,9 @@ public class CompanyServiceImpl implements ICompanyService {
     public void update(UUID id, AddCompanyDTO addCompanyDTO) {
         Optional<Company> optionalCompany = companyRepository.findById(id);
         if (optionalCompany.isPresent()) {
-            CompanyDTO companyDTO = companyToCompanyDTO.map(optionalCompany.get());
-            companyDTO.setName(addCompanyDTO.getName());
-            companyDTO.setAcronym(addCompanyDTO.getAcronym());
-            Company company = companyDTOToCompany.map(companyDTO);
+            Company company = optionalCompany.get();
+            company.setName(addCompanyDTO.getName());
+            company.setAcronym(addCompanyDTO.getAcronym());
             companyRepository.save(company);
         }else {
             throw new SysFactElectException("Company not found", HttpStatus.NOT_FOUND);

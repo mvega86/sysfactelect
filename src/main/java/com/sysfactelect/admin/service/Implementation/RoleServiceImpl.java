@@ -1,6 +1,6 @@
 package com.sysfactelect.admin.service.Implementation;
 
-import com.sysfactelect.exceptions.exceptions.SysFactElectException;
+import com.sysfactelect.exceptions.SysFactElectException;
 import com.sysfactelect.admin.persistence.entity.Role;
 import com.sysfactelect.admin.persistence.repository.RoleRepository;
 import com.sysfactelect.admin.service.IRoleService;
@@ -26,8 +26,6 @@ public class RoleServiceImpl implements IRoleService {
     private AddRoleDTOToRole addRoleDTOToRole;
     @Autowired
     private RoleToRoleDTO roleToRoleDTO;
-    @Autowired
-    private RoleDTOToRole roleDTOToRole;
     @Override
     public List<RoleDTO> findAll() {
         return roleRepository.findAll()

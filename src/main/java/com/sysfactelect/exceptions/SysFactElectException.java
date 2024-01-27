@@ -1,4 +1,4 @@
-package com.sysfactelect.exceptions.exceptions;
+package com.sysfactelect.exceptions;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

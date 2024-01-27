@@ -13,5 +13,4 @@ public interface IInvoiceService {
     InvoiceDTO findById(String type, Long serial);
     void save(AddInvoiceDTO invoiceDTO);
     void deleteById(String type, Long serial);
-    void update(String type, Long serial, AddInvoiceDTO invoiceDTO);
 }
