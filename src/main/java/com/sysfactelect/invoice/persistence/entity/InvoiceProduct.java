@@ -1,5 +1,6 @@
 package com.sysfactelect.invoice.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceProductId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,14 +20,16 @@ public class InvoiceProduct {
     private InvoiceProductId invoiceProductId;
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name="type_invoice"),
-            @JoinColumn(name="serial_invoice")
+            @JoinColumn(name="serial_invoice"),
+            @JoinColumn(name="type_invoice")
     })
     @MapsId("invoiceId")
+    @JsonIgnore
     private Invoice invoice;
     @ManyToOne
     @JoinColumn(name="id_product")
     @MapsId("id")
+    @JsonIgnore
     private Product product;
     private BigDecimal cant;
 }

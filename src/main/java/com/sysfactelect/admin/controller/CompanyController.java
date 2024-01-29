@@ -28,7 +28,7 @@ public class CompanyController {
         return ResponseEntity.ok(this.companyService.findAll());
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable UUID id){
         CompanyDTO companyDTO = companyService.findById(id);
         return ResponseEntity.ok(companyDTO);
