@@ -9,5 +9,7 @@ public interface IInvoiceService {
     List<InvoiceDTO> findAll();
     InvoiceDTO findById(String type, Long serial);
     void save(AddInvoiceDTO invoiceDTO, List<InvoiceProductDTO> invoiceProductDTOList);
-    void cancelById(String type, Long serial);
+    void setCancel(String type, Long serial);
+    List<InvoiceProductDTO> findProductsByInvoiceId(String type, Long serial);
+    InvoiceProductDTO findProductByIdInvoiceByProductId(String type, Long serial, UUID id);
 }

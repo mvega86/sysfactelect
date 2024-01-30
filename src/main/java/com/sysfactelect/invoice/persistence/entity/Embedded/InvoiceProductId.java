@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Embeddable
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class InvoiceProductId implements Serializable {
     private InvoiceId invoiceId;
     private UUID id;

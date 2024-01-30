@@ -2,7 +2,9 @@ package com.sysfactelect.invoice.service.implementation;
 
 import com.sysfactelect.exceptions.SysFactElectException;
 import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceId;
+import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceProductId;
 import com.sysfactelect.invoice.persistence.entity.Invoice;
+import com.sysfactelect.invoice.persistence.entity.InvoiceProduct;
 import com.sysfactelect.invoice.persistence.entity.Product;
 import com.sysfactelect.invoice.persistence.repository.InvoiceProductRepository;
 import com.sysfactelect.invoice.persistence.repository.InvoiceRepository;
@@ -33,6 +35,8 @@ public class InvoiceServiceImpl implements IInvoiceService {
     private AddInvoiceDTOToInvoice addInvoiceDTOToInvoice;
     @Autowired
     private InvoiceToInvoiceDTO invoiceToInvoiceDTO;
+    @Autowired
+    private InvoiceProductToInvoiceProductDTO invoiceProductToInvoiceProductDTO;
     @Override
     public List<InvoiceDTO> findAll() {
         return invoiceRepository.findAll()
@@ -61,11 +65,44 @@ public class InvoiceServiceImpl implements IInvoiceService {
     }
 
     @Override
-    public void cancelById(String type, Long serial) {
+    public void setCancel(String type, Long serial) {
         InvoiceId invoiceId = new InvoiceId(type, serial);
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceId);
         if(invoiceOptional.isPresent()){
             invoiceRepository.setCancelInvoice(type, serial);
+        }
+        throw new SysFactElectException("Invoice not found", HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public List<InvoiceProductDTO> findProductsByInvoiceId(String type, Long serial) {
+        InvoiceId invoiceId = new InvoiceId(type, serial);
+        Optional<Invoice> optionalInvoice = invoiceRepository.findById(invoiceId);
+        if(optionalInvoice.isPresent()){
+            Invoice invoice = optionalInvoice.get();
+            if(invoice.getInvoiceProductList().size() > 0) {
+                return optionalInvoice.get().getInvoiceProductList()
+                        .stream()
+                        .map(invoiceProduct -> invoiceProductToInvoiceProductDTO.map(invoiceProduct))
+                        .toList();
+            }
+            throw new SysFactElectException("Products not found in "+invoice.getInvoiceId().getType()+invoice.getInvoiceId().getSerial(), HttpStatus.NOT_FOUND);
+        }
+        throw new SysFactElectException("Invoice not found", HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public InvoiceProductDTO findProductByIdInvoiceByProductId(String type, Long serial, UUID id) {
+        InvoiceId invoiceId = new InvoiceId(type, serial);
+        Optional<Invoice> optionalInvoice = invoiceRepository.findById(invoiceId);
+        if(optionalInvoice.isPresent()){
+            Invoice invoice = optionalInvoice.get();
+            InvoiceProductId invoiceProductId = new InvoiceProductId(invoice.getInvoiceId(), id);
+            Optional<InvoiceProduct> optionalInvoiceProduct = invoiceProductRepository.findById(invoiceProductId);
+            if(optionalInvoiceProduct.isPresent()) {
+                return invoiceProductToInvoiceProductDTO.map(optionalInvoiceProduct.get());
+            }
+            throw new SysFactElectException("Product not found in "+invoice.getInvoiceId().getType()+invoice.getInvoiceId().getSerial(),HttpStatus.NOT_FOUND);
         }
         throw new SysFactElectException("Invoice not found", HttpStatus.NOT_FOUND);
     }

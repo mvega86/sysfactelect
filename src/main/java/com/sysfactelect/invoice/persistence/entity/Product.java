@@ -1,6 +1,7 @@
 package com.sysfactelect.invoice.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sysfactelect.invoice.persistence.entity.Embedded.InvoiceProductId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,5 +27,6 @@ public class Product {
     private BigDecimal price;
     @OneToMany(mappedBy = "product")
     @JsonIgnore
+    @JsonManagedReference
     private List<InvoiceProduct> invoiceProductList = new ArrayList<>();
 }
