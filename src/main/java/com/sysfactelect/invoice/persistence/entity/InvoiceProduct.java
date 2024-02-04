@@ -30,7 +30,6 @@ public class InvoiceProduct {
     @ManyToOne()
     @JoinColumn(name="id_product")
     @MapsId("id")
-    @JsonBackReference
     private Product product;
     private BigDecimal cant;
 }

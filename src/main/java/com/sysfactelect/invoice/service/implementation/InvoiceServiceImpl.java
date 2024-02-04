@@ -65,13 +65,15 @@ public class InvoiceServiceImpl implements IInvoiceService {
     }
 
     @Override
+    @Transactional
     public void setCancel(String type, Long serial) {
         InvoiceId invoiceId = new InvoiceId(type, serial);
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceId);
         if(invoiceOptional.isPresent()){
             invoiceRepository.setCancelInvoice(type, serial);
+        }else {
+            throw new SysFactElectException("Invoice not found", HttpStatus.NOT_FOUND);
         }
-        throw new SysFactElectException("Invoice not found", HttpStatus.NOT_FOUND);
     }
 
     @Override
