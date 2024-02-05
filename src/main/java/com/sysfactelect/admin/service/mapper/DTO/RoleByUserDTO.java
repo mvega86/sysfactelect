@@ -1,5 +1,6 @@
 package com.sysfactelect.admin.service.mapper.DTO;
 
+import com.sysfactelect.admin.persistence.entity.RoleName;
 import com.sysfactelect.admin.persistence.entity.User;
 import lombok.*;
 
@@ -14,6 +15,6 @@ import java.util.UUID;
 @Builder
 public class RoleByUserDTO {
     private Long id;
-    private String name;
+    private RoleName name;
 
 }

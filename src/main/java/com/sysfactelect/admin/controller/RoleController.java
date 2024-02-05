@@ -35,7 +35,7 @@ public class RoleController {
 
     @PostMapping("/save")
     public ResponseEntity<?> save(AddRoleDTO roleDTO){
-        if(roleDTO.getName().isBlank()){
+        if(roleDTO.getName().toString().isBlank()){
             return ResponseEntity.badRequest().build();
         }
         roleService.save(roleDTO);
