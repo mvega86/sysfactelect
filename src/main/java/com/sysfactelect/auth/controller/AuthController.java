@@ -1,27 +1,21 @@
 package com.sysfactelect.auth.controller;
 
-import com.sysfactelect.auth.service.IAuthService;
-import com.sysfactelect.auth.service.mapper.DTO.AuthResponse;
-import com.sysfactelect.auth.service.mapper.DTO.LoginRequest;
-import com.sysfactelect.auth.service.mapper.DTO.RegisterRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
-
-    @Autowired
-    private IAuthService authService;
-
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest){
-        return ResponseEntity.ok(authService.login(loginRequest));
+    @PostMapping(value = "login")
+    public String login(){
+        return "Login";
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> resgister(@RequestBody RegisterRequest registerRequest){
-        return ResponseEntity.ok(authService.register(registerRequest));
+    @PostMapping(value = "register")
+    public String register(){
+        return "Register";
     }
 }
