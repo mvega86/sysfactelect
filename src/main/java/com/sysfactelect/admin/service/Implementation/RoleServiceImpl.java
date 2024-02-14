@@ -39,7 +39,7 @@ public class RoleServiceImpl implements IRoleService {
             Role role = roleRepository.findById(id).get();
             return roleToRoleDTO.map(role);
         }
-        throw new EntityNotFoundException("Role not found");
+        throw new SysFactElectException("Role not found", HttpStatus.NOT_FOUND);
     }
     @Override
     public void save(AddRoleDTO roleDTO) {

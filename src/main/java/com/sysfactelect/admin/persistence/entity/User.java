@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "id_company", nullable = false, updatable = true)
     @JsonIgnore
     private Company company;
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") },

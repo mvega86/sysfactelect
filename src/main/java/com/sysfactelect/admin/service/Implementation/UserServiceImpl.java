@@ -28,10 +28,6 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private CompanyRepository companyRepository;
-    @Autowired
-    private AddUserDTOToUser addUserDTOToUser;
-    @Autowired
     private UserToUserDTO userToUserDTO;
     @Autowired
     private RoleToRoleByUserDTO roleToRoleByUserDTO;
@@ -50,18 +46,6 @@ public class UserServiceImpl implements IUserService {
             return userToUserDTO.map(optionalUser.get());
         }
         throw new SysFactElectException("User not found", HttpStatus.NOT_FOUND);
-    }
-
-    @Override
-    public void save(AddUserDTO addUserDTO) {
-        Optional<Company> optionalCompany = companyRepository.findById(addUserDTO.getCompany().getId());
-        if (optionalCompany.isPresent()){
-            User user = addUserDTOToUser.map(addUserDTO);
-            user.setCompany(optionalCompany.get());
-            userRepository.save(user);
-        }else {
-            throw new SysFactElectException("Company not found", HttpStatus.NOT_FOUND);
-        }
     }
 
     @Override

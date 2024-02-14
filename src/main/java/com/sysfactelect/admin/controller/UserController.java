@@ -26,14 +26,6 @@ public class UserController {
     public ResponseEntity<?> find(@PathVariable UUID id){
         return ResponseEntity.ok(userService.findById(id));
     }
-    @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody AddUserDTO addUserDTO){
-        if (addUserDTO.getUsername().isBlank() || addUserDTO.getEmail().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        userService.save(addUserDTO);
-        return ResponseEntity.created(URI.create("/admin/user/save")).build();
-    }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody AddUserDTO addUserDTO){
         userService.update(id,addUserDTO);

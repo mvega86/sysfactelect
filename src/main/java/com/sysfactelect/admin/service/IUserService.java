@@ -16,8 +16,6 @@ public interface IUserService {
 
     public UserDTO findById(UUID id);
 
-    public void save(AddUserDTO addUserDTO);
-
     public void deleteById(UUID id);
 
     public void update(UUID id, AddUserDTO addUserDTO);
