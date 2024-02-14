@@ -43,7 +43,6 @@ public class AuthServiceImpl implements IAuthService {
 
     @Override
     public AuthResponse register(RegisterRequest registerRequest) {
-        System.out.println(registerRequest.getUsername());
         User user = registerRequestToUser.map(registerRequest);
         userRepository.save(user);
         return AuthResponse.builder()
